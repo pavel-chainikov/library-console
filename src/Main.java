@@ -1,20 +1,18 @@
 public class Main {
     public static void main(String[] args) {
-        Book book = new Book("Война и мир", "Толстой", 1869);
-        System.out.println(book.getInfo());
-        System.out.println("Выдана: " + book.takeBook());
-        System.out.println("Выдана повторно: " + book.takeBook());
-        System.out.println(book.getInfo());
-        System.out.println("Возвращена: " + book.returnBook());
-        try {
-            Book emptyTitle = new Book("", "Оруэлл", 1984);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка: " + e.getMessage());
+        Library library = new Library();
+        library.addBook(new Book("Война и мир", "Толстой", 1869));
+        library.addBook(new Book("Анна Каренина", "Толстой", 1878));
+        library.addBook(new Book("Мастер и Маргарита", "Булгаков", 1967));
+        library.printAll();
+        System.out.println("Выдать «мастер и маргарита»: " + library.takeBook("мастер и маргарита"));
+        System.out.println("Выдать «Идиот»: " + library.takeBook("Идиот"));
+        System.out.println("В наличии: " + library.countAvailable());
+        System.out.println("Книги автора «толст»:");
+        for (Book book : library.findByAuthor("толст")) {
+            System.out.println(book.getInfo());
         }
-        try {
-            Book yearExceeded = new Book("Книга", "Автор", 3000);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка: " + e.getMessage());
-        }
+        System.out.println("Удалить «Анна Каренина»: " + library.removeBook("Анна Каренина"));
+        library.printAll();
     }
 }
